@@ -1,10 +1,10 @@
 var express = require('express');
 var dataRouter = express.Router();
 const bodyParser = require('body-parser');
-dataRouter.use(bodyParser.json());
 var data1 = require('../shared/data');
+dataRouter.use(bodyParser.json());
 
-dataRouter.route('/')
+dataRouter.route('/:id')
 .post((req, res, next) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
@@ -21,9 +21,22 @@ dataRouter.route('/')
         JSON.stringify(slot);
         slots.push(slot);
     }
-    console.log(slots);
-    data1.prevdata = slots;
-    req.app.io.emit('currentData', slots)
+    console.log("ID: "+req.params.id+"  Data: "+slots);
+    if(req.params.id == 1) {
+        data1.prevdata1 = slots;
+        req.app.io.emit('currentData1', slots)
+    }
+    else if(req.params.id == 2) {
+        data1.prevdata2 = slots;
+        req.app.io.emit('currentData2', slots)
+    }
+    else if(req.params.id == 3) {
+        data1.prevdata3 = slots;
+        req.app.io.emit('currentData3', slots)
+    }
+    else{
+
+    }
 });
 
 //module.exports.data = data;

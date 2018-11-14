@@ -7,7 +7,7 @@ old_state = {'A1':'0', 'A2':'0', 'B1':'0', 'B2':'0'}
 MQTT_SERVER = "127.0.0.1"
 path_1 = "/node1/data"
 path_2 = "/node2/data"
-server_url = 'http://localhost:3000/data'
+server_url = 'http://localhost:3000/data/1'
 headers = {'content-type': 'application/json'}
 
 
