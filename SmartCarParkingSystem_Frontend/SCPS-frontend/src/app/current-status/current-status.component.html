@@ -1,0 +1,38 @@
+<div id="dropdown">
+<h3>Select Parking Site</h3>
+<mat-form-field>
+  <mat-select placeholder="Parking Sites" (selectionChange)="onSelection($event)">
+    <mat-option *ngFor="let site of sites" [value]="site.siteId">
+      {{ site.siteName }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+
+<mat-grid-list cols="3" rowHeight="100px">
+    <mat-grid-tile *ngIf="totalSlots">
+      <h1>Total Slots: {{ totalSlots }}</h1>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <h1 *ngIf="emptySlots == 0" style="color:red">PARKING FULL !!</h1>
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="emptySlots || emptySlots == 0">
+      <h1>Empty Slots: {{ emptySlots }}</h1>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+<div class="container" fxLayout="row" fxLayoutGap="100px">
+  <mat-card *ngFor="let slot of slots" class="slotcard">
+      <mat-card-title style="text-align: center">
+        {{ slot.slotName }}
+      </mat-card-title>
+      <img mat-card-image src="/assets/images/yes.jpg" alt="Yes" *ngIf="slot.slotValue === '0'">
+      <img mat-card-image src="/assets/images/no.jpg" alt="No" *ngIf="slot.slotValue === '1'">
+      <mat-card-title *ngIf="slot.slotValue === '0'" style="text-align: center">
+          AVAILABLE
+      </mat-card-title>
+      <mat-card-title *ngIf="slot.slotValue === '1'" style="text-align: center">
+          OCCUPIED
+      </mat-card-title>
+  </mat-card>
+</div>
