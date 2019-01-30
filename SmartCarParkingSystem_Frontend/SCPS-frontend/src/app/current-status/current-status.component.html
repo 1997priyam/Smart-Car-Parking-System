@@ -1,13 +1,23 @@
-<div id="dropdown">
-<h3>Select Parking Site</h3>
-<mat-form-field>
-  <mat-select placeholder="Parking Sites" (selectionChange)="onSelection($event)">
-    <mat-option *ngFor="let site of sites" [value]="site.siteId">
-      {{ site.siteName }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-</div>
+<mat-grid-list cols="2" rowHeight="180px">
+  <mat-grid-tile>
+    <div id="dropdown">
+    <h3>Select Parking Site</h3>
+    <mat-form-field>
+      <mat-select #drop placeholder="Parking Sites" (selectionChange)="onSelection($event)">
+        <mat-option *ngFor="let site of sites" [value]="site.siteId">
+          {{ site.siteName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+      <button mat-raised-button color="primary" (click)="getNearestSlot()" [disabled]="!drop.value || emptySlots == 0">Nearest Space</button>
+      <br>
+      <h3 id="nearestslot"*ngIf="nearestSlot">{{ nearestSlot.slotName }}</h3>
+  </mat-grid-tile>
+</mat-grid-list>
 
 <mat-grid-list cols="3" rowHeight="100px">
     <mat-grid-tile *ngIf="totalSlots">
@@ -35,4 +45,12 @@
           OCCUPIED
       </mat-card-title>
   </mat-card>
+
+  <div [hidden]="slots || !drop.value" id="spinner">
+    <mat-spinner></mat-spinner>
+    <h4>Loading . . . Please Wait</h4>
+  </div>
+
 </div>
+
+

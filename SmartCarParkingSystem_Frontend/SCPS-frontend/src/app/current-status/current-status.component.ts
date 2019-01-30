@@ -16,6 +16,7 @@ export class CurrentStatusComponent implements OnInit {
 slots;
 totalSlots;
 emptySlots;
+nearestSlot;
 sites: Site[] = SITES;
 subs: Subscription;
   constructor(private statusService: StatusService) { }
@@ -29,6 +30,8 @@ onSelection(id) {
   }
   this.totalSlots = null;
   this.emptySlots = null;
+  this.slots = null;
+  this.nearestSlot = null;
   const initsite = 'initSite' + id.value;
     this.subs = this.statusService.getData(id.value)
     .subscribe((data) => {
@@ -42,4 +45,12 @@ onSelection(id) {
     });
     this.statusService.firstData(initsite);
 }
+getNearestSlot(): void {
+  this.nearestSlot = this.slots.filter((slot) => {
+    if (slot.slotValue === '0') {
+      return slot;
+    }
+  })[0];
+}
+
 }
